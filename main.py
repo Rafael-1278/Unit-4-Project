@@ -78,28 +78,109 @@ def grey():
   return newImage
 
 
+
+
+
 #####################
 #    Your Filter    #
 #####################
 
 def filter1():
-  print("Code for filter1")
-  newImage = img
+  # Creates an ImageCore Object from original image
+  pixels = img.getdata()
+  # Creates empty array to hold new pixel values
+  new_pixels = []
+  # For every pixel from our original image, it saves
+  # a copy of that pixel to our new_pixels array
+  for p in pixels:
+    new_pixels.append(p)
+  # Starts at the first pixel in the image
+  location = 0
+  # Continues until it has looped through all pixels
+  while location < len(new_pixels):
+    # Gets the current color of the pixel at location
+    p = new_pixels[location]
+    # Splits color into red, green and blue components
+    r = p[0]
+    g = p[1]
+    b = p[2]
+    # Perform pixel manipulation and stores results
+    # to a new red, green and blue components
+    newr = (r + g + b) // 3
+    newg = (r + g + b) // 200
+    newb = (r + g + b) // 3
+    # Assign new red, green and blue components to pixel
+    # at that specific location
+    new_pixels[location] = (newr, newg, newb)
+    # Changes the location to the next pixel in array
+    location = location + 1
+  # Creates a new image, the same size as the original 
+  # using RGB value format
+  newImage = Image.new("RGB", img.size)
+  # Assigns the new pixel values to newImage
+  newImage.putdata(new_pixels)
+  # Sends the newImage back to the main portion of program
   return newImage
+
+
+
 
 #####################################
 #    Your Filters with User Input   #
 #####################################
 
 def filter2():
-  print("Code for filter2")
-  newImage = img
+  # Creates an ImageCore Object from original image
+  pixels = img.getdata()
+  # Creates empty array to hold new pixel values
+  new_pixels = []
+  # For every pixel from our original image, it saves
+  # a copy of that pixel to our new_pixels array
+  for p in pixels:
+    new_pixels.append(p)
+  # Starts at the first pixel in the image
+  location = 0
+  # Continues until it has looped through all pixels
+  Rr = int(input("What will you like to set red as from 1 to 10? "))
+  Bb = int(input("What will you like to set blue as from 1 to 10? "))
+  Gg = int(input("What will you like to set green as from 1 to 10? "))
+  while location < len(new_pixels):
+    # Gets the current color of the pixel at location
+    p = new_pixels[location]
+    # Splits color into red, green and blue components
+    r = p[0]
+    g = p[1]
+    b = p[2]
+    # Perform pixel manipulation and stores results
+    # to a new red, green and blue components
+    newr = (r + g + b) // Rr
+    newg = (r + g + b) // Gg
+    newb = (r + g + b) // Bb
+    # Assign new red, green and blue components to pixel
+    # at that specific location
+    new_pixels[location] = (newr, newg, newb)
+    # Changes the location to the next pixel in array
+    location = location + 1
+  # Creates a new image, the same size as the original 
+  # using RGB value format
+  newImage = Image.new("RGB", img.size)
+  # Assigns the new pixel values to newImage
+  newImage.putdata(new_pixels)
+  # Sends the newImage back to the main portion of program
   return newImage
 
+
+  
 def filter3():
-  print("Code for filter3")
-  newImage = img
-  return newImage
+    print("Code for filter3")
+    newImage = img
+    return newImage
+
+
+
+
+
+
 
 # Creates the four filter images and saves them to our files
 a = grey()
@@ -140,3 +221,4 @@ print("Image being created...Done")
 
 # Create the combined filter image and saves it to our files
 img.save("combinedFilters.jpg")
+
