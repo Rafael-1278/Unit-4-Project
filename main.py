@@ -28,14 +28,22 @@ img = Image.open('image.jpg')
 # Rescale image size down, if original is too large
 width = img.width
 height = img.height
-mwidth = width // 1000
-mheight = height // 1000
-if mwidth > mheight:
-  scale = mwidth
-else:
-  scale = mheight
-if scale != 0:
-  img = img.resize( (width // scale, height // scale) )
+
+# Define a maximum size threshold
+max_size = 1000
+
+# Calculate scale factors
+scale_width = width / max_size
+scale_height = height / max_size
+
+# Determine the scale to use
+scale = max(scale_width, scale_height)
+
+# Resize the image only if the scale is greater than 1
+if scale > 1:
+    new_width = int(width / scale)
+    new_height = int(height / scale)
+    img = img.resize((new_width, new_height), Image.ANTIALIAS)  # Use ANTIALIAS for better quality
 
 ########################
 #    Example Filter    #
